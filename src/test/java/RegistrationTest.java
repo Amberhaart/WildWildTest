@@ -23,7 +23,7 @@ public class RegistrationTest {
     Registration.clickOnRegisterBtn(driver);
     Registration.fillUserNameField(driver);
     Registration.fillPassword(driver);
-    Registration.fillKingdomName(driver);
+    Registration.fillKingdomName(driver, kingdomName);
     Registration.clickOnSignUpBtn(driver);
   }
 }

@@ -37,7 +37,7 @@ public class Registration {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement kingdomNameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"app\"]//form//input[@name=\"kingdom\"]")));
     kingdomNameField.clear();
-    kingdomNameField.sendKeys(kingdomName;
+    kingdomNameField.sendKeys(kingdomName);
   }
 
   public static void clickOnSignUpBtn(WebDriver driver) {
