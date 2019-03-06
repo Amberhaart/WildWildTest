@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import configuration.Config;
 
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 
 
 public class Registration {
@@ -53,5 +54,10 @@ public class Registration {
     fillPassword(driver);
     fillKingdomName(driver, kingdomName);
     clickOnSignUpBtn(driver);
+  }
+
+  public static String getUrl(WebDriver driver, int timeOut){
+    driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+    return driver.getCurrentUrl();
   }
 }
