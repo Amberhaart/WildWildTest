@@ -1,5 +1,6 @@
 import configuration.Config;
 import keywords.BuildBuildings;
+import keywords.BuildTime;
 import keywords.Login;
 import keywords.Logout;
 import org.junit.AfterClass;
@@ -8,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 
 public class BuildTimeTest {
 
@@ -31,8 +31,26 @@ public class BuildTimeTest {
   }
 
   @Test
-  public void buildTime() {
+  public void farmBuildTime() {
     BuildBuildings.clickOnFarm(driver);
+    String readyByTime = BuildTime.getReadyByTime(driver);
+    String calculatedReadyByTime = BuildTime.getCalculatedReadyByTime();
+    Assert.assertEquals(readyByTime, calculatedReadyByTime);
+  }
 
+  @Test
+  public void academyBuildTime() {
+    BuildBuildings.clickOnAcademy(driver);
+    String readyByTime = BuildTime.getReadyByTime(driver);
+    String calculatedReadyByTime = BuildTime.getCalculatedReadyByTime();
+    Assert.assertEquals(readyByTime, calculatedReadyByTime);
+  }
+
+  @Test
+  public void mineBuildTime() {
+    BuildBuildings.clickOnMine(driver);
+    String readyByTime = BuildTime.getReadyByTime(driver);
+    String calculatedReadyByTime = BuildTime.getCalculatedReadyByTime();
+    Assert.assertEquals(readyByTime, calculatedReadyByTime);
   }
 }
