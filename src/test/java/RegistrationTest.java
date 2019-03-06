@@ -1,5 +1,6 @@
 import configuration.Config;
 import keywords.Registration;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,8 @@ public class RegistrationTest {
   final private String kingdomName = "TestKingdom";
   final private long myTimeStamp = Registration.getTimeStamp(driver);
   final private String myUsername = "name"+ myTimeStamp;
+  final private int timeOut = 10;
+  final private String registrationAssertUrl = "http://localhost:3001/map";
 
   @BeforeClass
   public static void setUp(){
@@ -23,5 +26,7 @@ public class RegistrationTest {
   @Test
   public void registrationTest(){
     Registration.register(driver, myUsername, kingdomName);
+    System.out.println(myUsername);
+    Assert.assertEquals(Registration.getUrl(driver, timeOut), registrationAssertUrl);
   }
 }
