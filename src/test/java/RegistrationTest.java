@@ -1,6 +1,8 @@
 import configuration.Config;
+import keywords.Login;
 import keywords.Registration;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -20,13 +22,26 @@ public class RegistrationTest {
     driver = new FirefoxDriver();
     driver.manage().deleteAllCookies();
     driver.manage().window().maximize();
+  }
+
+  @Before
+  public void getUrl(){
     driver.get(Config.url);
   }
 
   @Test
-  public void registrationTest(){
+  public void reachMapAfterRegistration(){
     Registration.register(driver, myUsername, kingdomName);
-    System.out.println(myUsername);
     Assert.assertEquals(Registration.getUrl(driver, timeOut), registrationAssertUrl);
   }
+
+  @Test
+  public void canLoginAfterRegistration(){
+    Registration.register(driver, myUsername, kingdomName);
+    driver.get(Config.url + "login");
+    Login.login(driver, myUsername, Config.password);
+    Assert.assertTrue(Login.validateLoggedInState(driver));
+  }
+
+
 }
