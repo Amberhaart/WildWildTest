@@ -1,4 +1,5 @@
 import configuration.Config;
+import keywords.Login;
 import keywords.Logout;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,8 @@ public class LogoutTest {
 
   @Before
   public void setUp() {
-    driver.get(Config.url); // instead of this line here comes the login method
+    driver.get(Config.url + "login/");
+    Login.login(driver);
   }
 
   @AfterClass
