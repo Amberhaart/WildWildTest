@@ -1,10 +1,7 @@
 import configuration.Config;
 import keywords.Login;
 import keywords.Registration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -29,6 +26,10 @@ public class RegistrationTest {
     driver.get(Config.url);
   }
 
+  @AfterClass
+  public static void tearDown(){
+    driver.quit();
+  }
   @Test
   public void reachMapAfterRegistration() {
     Registration.register(driver, myUniqueUsername, kingdomName);
