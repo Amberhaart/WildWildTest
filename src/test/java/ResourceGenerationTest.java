@@ -30,18 +30,13 @@ public class ResourceGenerationTest {
   }
 
   @Test
-  public void pineappleGeneration() throws InterruptedException {
+  public void resourceGeneration() throws InterruptedException {
     int pineappleCountBefore = ResourceGeneration.getResourceCount(driver, ResourceNameEnum.PINEAPPLE);
-    TimeUnit.MINUTES.sleep(1);
-    int pineappleCountAfter = ResourceGeneration.getResourceCount(driver, ResourceNameEnum.PINEAPPLE);
-    Assert.assertTrue(pineappleCountAfter == pineappleCountBefore + 1);
-  }
-
-  @Test
-  public void coinGeneration() throws InterruptedException {
     int coinCountBefore = ResourceGeneration.getResourceCount(driver, ResourceNameEnum.COIN);
     TimeUnit.MINUTES.sleep(1);
+    int pineappleCountAfter = ResourceGeneration.getResourceCount(driver, ResourceNameEnum.PINEAPPLE);
     int coinCountAfter = ResourceGeneration.getResourceCount(driver, ResourceNameEnum.COIN);
+    Assert.assertTrue(pineappleCountAfter == pineappleCountBefore + 1);
     Assert.assertTrue(coinCountAfter == coinCountBefore + 1);
   }
 }
