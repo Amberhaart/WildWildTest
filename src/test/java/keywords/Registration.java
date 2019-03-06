@@ -16,14 +16,16 @@ public class Registration {
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"app\"]/header/nav/button[@name=\"/register\"]"))).click();
   }
 
-  public static String fillUserNameField(WebDriver driver) {
+  public static long getTimeStamp(WebDriver driver) {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    long myUsernameTimestamp = timestamp.getTime();
+    return timestamp.getTime();
+  }
+
+  public static void fillUserNameField(WebDriver driver, String myUserName) {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement userNameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"app\"]//form//input[@name=\"username\"]")));
     userNameField.clear();
-    userNameField.sendKeys("name" + myUsernameTimestamp);
-    return "name" + myUsernameTimestamp;
+    userNameField.sendKeys(myUserName);
   }
 
   public static void fillPassword(WebDriver driver) {
@@ -45,5 +47,11 @@ public class Registration {
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/main/div/form/button"))).click();
   }
 
-
+  public static void register(WebDriver driver, String myUsername, String kingdomName) {
+    clickOnRegisterBtn(driver);
+    fillUserNameField(driver, myUsername);
+    fillPassword(driver);
+    fillKingdomName(driver, kingdomName);
+    clickOnSignUpBtn(driver);
+  }
 }
