@@ -1,6 +1,7 @@
 import configuration.Config;
 import keywords.ConstructionLog;
 import keywords.Login;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ConstructionLogTest {
   protected static WebDriver driver;
-  protected int timeOut = 16;
 
   @BeforeClass
   public static void setUp() {
@@ -18,6 +18,12 @@ public class ConstructionLogTest {
     driver.manage().window().maximize();
     driver.get(Config.url + "login/");
     Login.login(driver, Config.userName, Config.password);
+  }
+
+
+  @AfterClass
+  public static void tearDown() {
+    driver.quit();
   }
 
   @Test
