@@ -20,7 +20,7 @@ public class ResourceGenerationTest {
     driver.manage().deleteAllCookies();
     driver.manage().window().maximize();
     driver.get(Config.url + "login/");
-    Login.login(driver);
+    Login.login(driver, Config.userName, Config.password);
   }
 
   @AfterClass
