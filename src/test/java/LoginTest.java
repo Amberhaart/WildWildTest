@@ -26,7 +26,7 @@ public class LoginTest {
 
   @Test
   public void LoginTest() {
-    Login.login(driver);
+    Login.login(driver, Config.userName, Config.password);
     Assert.assertTrue(Login.validateLoggedInState(driver));
   }
 }
