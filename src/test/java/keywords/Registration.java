@@ -60,4 +60,10 @@ public class Registration {
     driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
     return driver.getCurrentUrl();
   }
+
+  public static boolean registErrorAllertIsVisible(WebDriver driver){
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+    WebElement registError = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id=\"app\"]//h3[@class=\"registError\"]")));
+    return registError.isDisplayed();
+  }
 }
