@@ -1,9 +1,7 @@
 import configuration.Config;
 import keywords.Login;
 import keywords.Upgrade;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -25,9 +23,23 @@ public class UpgradeTest {
     driver.quit();
   }
 
-  @Test
-  public void basicCheck() {
-    System.out.println(Upgrade.getTownhallLevel(driver));
-    System.out.println(Upgrade.getFarmLevel(driver));
+  @After
+  public void reset() {
+    Upgrade.goToBuildings(driver);
   }
+
+  @Test
+  public void upgradeTownhall() {
+    int initialLevel = Upgrade.getTownhallLevel(driver);
+    Upgrade.upgradeTownhall(driver);
+    Upgrade.waitUntilUpgradeFinishes(driver);
+    Assert.assertEquals(initialLevel + 1, Upgrade.getUpgradedTownhallLevel(driver));
+  }
+
+  @Test
+  public void upgradeBeyondTownhallLevel() {
+    Upgrade.tryToUpgradeFarmBeyondTownhall(driver);
+    Assert.assertTrue(Upgrade.errorMessageWhenTryingToUpgradeBeyondTownhall(driver));
+  }
+
 }
