@@ -12,6 +12,7 @@ public class Logout {
   }
 
   public static Boolean isLoggedOut(WebDriver driver) {
-    return driver.findElements(By.xpath("/html/body/div/main/div/form/button")).size() != 0;
+    WebElement loginBtn = driver.findElement(By.xpath("/html/body/div/main/div/form/button"));
+    return (loginBtn.getText() == "Login");
   }
 }
