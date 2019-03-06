@@ -41,4 +41,12 @@ public class BuildBuildings {
     }
   }
 
+  public static String getNewBuildingName(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+    long buildingNumber = getBuildingsCount(driver);
+
+    String buildingName = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div[1]/div[" + buildingNumber + "]/p[1]"))).getText();
+    return buildingName;
+  }
+
 }
