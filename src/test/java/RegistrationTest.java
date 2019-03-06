@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class RegistrationTest {
   static WebDriver driver;
   final private String kingdomName = "TestKingdom";
+  final private long myTimeStamp = Registration.getTimeStamp(driver);
+  final private String myUsername = "name"+ myTimeStamp;
 
   @BeforeClass
   public static void setUp(){
@@ -20,10 +22,6 @@ public class RegistrationTest {
 
   @Test
   public void registrationTest(){
-    Registration.clickOnRegisterBtn(driver);
-    Registration.fillUserNameField(driver);
-    Registration.fillPassword(driver);
-    Registration.fillKingdomName(driver, kingdomName);
-    Registration.clickOnSignUpBtn(driver);
+    Registration.register(driver, myUsername, kingdomName);
   }
 }
