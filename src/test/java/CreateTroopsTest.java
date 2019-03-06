@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class CreateTroopsTest {
   private static WebDriver driver;
   int numberOfTroops = 1;
-  int numberOfMaxTroops = 21;
+  int numberOfMaxTroops = 10;
 
   @BeforeClass
   public static void initialize() {
@@ -18,27 +18,27 @@ public class CreateTroopsTest {
     driver = new FirefoxDriver();
     driver.manage().deleteAllCookies();
     driver.manage().window().maximize();
-    driver.get(Config.url  + "login/");
+    driver.get(Config.url + "login/");
     Login.login(driver, Config.userName, Config.password);
   }
+
   @Test
-  public void canAddTroops(){
-    //int currentGoldNumber = Integer.parseInt(CreateTroops.getAmountOfCurrentGold(driver));
+  public void canAddTroops() {
+    int currentTroopsNumber = CreateTroops.checkCreatedTroops(driver);
+    driver.get("http://localhost:3001/kingdom/buildings");
     CreateTroops.goToAcademy(driver);
     CreateTroops.createTroops(driver, numberOfTroops);
-    //Assert.assertNotEquals(currentGoldNumber, currentGoldNumber-10);
-    Assert.assertEquals(numberOfTroops, CreateTroops.checkCreatedTroops(driver));
+    CreateTroops.waitToCreateTroops();
+    Assert.assertEquals(currentTroopsNumber + numberOfTroops, CreateTroops.checkCreatedTroops(driver));
   }
+
   @Test
-  public void maxNumberOfTroops(){
+  public void overMaxNumberOfTroops() {
+    int currentTroopsNumber = CreateTroops.checkCreatedTroops(driver);
+    driver.get("http://localhost:3001/kingdom/buildings");
     CreateTroops.goToAcademy(driver);
     CreateTroops.createTroops(driver, numberOfMaxTroops);
-    Assert.assertEquals(numberOfMaxTroops, CreateTroops.checkCreatedTroops(driver));
-  }
-  @Test
-  public void overMaxNumberOfTroops(){
-    CreateTroops.goToAcademy(driver);
-    CreateTroops.createTroops(driver, numberOfMaxTroops+1);
-    Assert.assertNotEquals(numberOfMaxTroops, CreateTroops.checkCreatedTroops(driver));
+    CreateTroops.waitToCreateTroops();
+    Assert.assertNotEquals(currentTroopsNumber + numberOfMaxTroops, CreateTroops.checkCreatedTroops(driver));
   }
 }

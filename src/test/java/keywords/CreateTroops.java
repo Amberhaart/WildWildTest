@@ -30,12 +30,21 @@ public class CreateTroops {
     WebElement troopsTab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[1]/div[2]")));
     troopsTab.click();
     WebElement upgradeBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
-    return Integer.parseInt(upgradeBtn.getText());
+    String numberOfTroops = upgradeBtn.getText();
+    int space = numberOfTroops.indexOf(' ');
+    return Integer.parseInt(numberOfTroops.substring(0, space));
   }
 
   public static String getAmountOfCurrentGold(WebDriver driver) {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement numberOfGold = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span")));
     return numberOfGold.getAttribute("value");
+  }
+  public static void waitToCreateTroops(){
+    try {
+      Thread.sleep(60000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
