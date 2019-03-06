@@ -25,12 +25,12 @@ public class CreateTroops {
     }
   }
 
-  public static String checkCreatedTroops(WebDriver driver) {
+  public static int checkCreatedTroops(WebDriver driver) {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement troopsTab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[1]/div[2]")));
     troopsTab.click();
     WebElement upgradeBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
-    return upgradeBtn.getAttribute("value");
+    return Integer.parseInt(upgradeBtn.getText());
   }
 
   public static String getAmountOfCurrentGold(WebDriver driver) {

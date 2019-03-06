@@ -9,14 +9,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
 
-  public static void login(WebDriver driver) {
+  public static void login(WebDriver driver, String username, String password) {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
 
     WebElement usernameInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[1]")));
-    usernameInput.sendKeys(Config.userName);
+    usernameInput.sendKeys(username);
 
     WebElement passwordInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[2]")));
-    passwordInput.sendKeys(Config.password);
+    passwordInput.sendKeys(password);
 
     WebElement loginBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/button")));
     loginBtn.click();
