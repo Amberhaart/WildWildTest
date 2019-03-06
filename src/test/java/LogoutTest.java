@@ -20,7 +20,7 @@ public class LogoutTest {
   @Before
   public void setUp() {
     driver.get(Config.url + "login/");
-    Login.login(driver);
+    Login.login(driver, Config.userName, Config.password);
   }
 
   @AfterClass
