@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ConstructionLogTest {
   protected static WebDriver driver;
+  protected int timeOut = 16;
 
   @BeforeClass
   public static void setUp() {
@@ -20,12 +21,22 @@ public class ConstructionLogTest {
   }
 
   @Test
-  public void progressTrackIsVisibleTest(){
+  public void progressTrackIsVisibleTest() {
     ConstructionLog.clickOnAddFarmBtn(driver);
     Assert.assertTrue(ConstructionLog.progressTrackIsVisible(driver));
   }
 
   @Test
-  public void 
-
+  public void constructionLogUpdatedTest() {
+    String constructionTimeBeforeAddNewBuilding = ConstructionLog.getLastConstructionTime(driver);
+    System.out.println(constructionTimeBeforeAddNewBuilding);
+    ConstructionLog.clickOnAddFarmBtn(driver);
+    try {
+      Thread.sleep(31000);
+    } catch (Exception e) {
+    }
+    String constructionTimeAfterAddNewBuilding = ConstructionLog.getLastConstructionTime(driver);
+    System.out.println(constructionTimeAfterAddNewBuilding);
+    Assert.assertNotEquals(constructionTimeAfterAddNewBuilding, constructionTimeBeforeAddNewBuilding);
+  }
 }
