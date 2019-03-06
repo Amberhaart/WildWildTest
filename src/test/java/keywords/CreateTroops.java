@@ -29,8 +29,11 @@ public class CreateTroops {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement troopsTab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[1]/div[2]")));
     troopsTab.click();
-    WebElement upgradeBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
-    String numberOfTroops = upgradeBtn.getText();
+    if (!driver.findElement(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")).isDisplayed()) {
+      return 0;
+    }
+    WebElement createTroopBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
+    String numberOfTroops = createTroopBtn.getText();
     int space = numberOfTroops.indexOf(' ');
     return Integer.parseInt(numberOfTroops.substring(0, space));
   }
@@ -40,9 +43,10 @@ public class CreateTroops {
     WebElement numberOfGold = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span")));
     return numberOfGold.getAttribute("value");
   }
-  public static void waitToCreateTroops(){
+
+  public static void waitToCreateTroops() {
     try {
-      Thread.sleep(60000);
+      Thread.sleep(20000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

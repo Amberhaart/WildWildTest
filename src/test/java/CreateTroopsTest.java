@@ -1,6 +1,7 @@
 import configuration.Config;
 import keywords.CreateTroops;
 import keywords.Login;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,6 +21,11 @@ public class CreateTroopsTest {
     driver.manage().window().maximize();
     driver.get(Config.url + "login/");
     Login.login(driver, Config.userName, Config.password);
+  }
+
+  @AfterClass
+  public static void tearDown() {
+    driver.quit();
   }
 
   @Test
