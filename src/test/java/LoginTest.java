@@ -13,7 +13,7 @@ public class LoginTest {
 
   @BeforeClass
   public static void setUp() {
-    System.setProperty("webdriver.gecko.driver", "/Users/Roland/Gecko-drivers/Mozilla/geckodriver");
+    System.setProperty(Config.webDriverName, Config.webDriverPath);
     driver = new FirefoxDriver();
     driver.manage().window().maximize();
     driver.get(Config.url + "login/");
