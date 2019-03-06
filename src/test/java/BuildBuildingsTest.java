@@ -29,33 +29,32 @@ public class BuildBuildingsTest {
   @Test
   public void checkSuccessfulMineBuild() {
     long initialBuildings = BuildBuildings.getBuildingsCount(driver);
-    System.out.println(initialBuildings);
     BuildBuildings.clickOnMine(driver);
     BuildBuildings.waitUntilBuildingFinishes(driver);
     long currentBuildings = BuildBuildings.getBuildingsCount(driver);
-    System.out.println(currentBuildings);
     Assert.assertEquals(initialBuildings + 1, currentBuildings);
+    Assert.assertEquals(BuildBuildings.getNewBuildingName(driver), "Mine");
   }
 
   @Test
   public void checkSuccessfulFarmBuild() {
     long initialBuildings = BuildBuildings.getBuildingsCount(driver);
-    System.out.println(initialBuildings);
     BuildBuildings.clickOnFarm(driver);
     BuildBuildings.waitUntilBuildingFinishes(driver);
     long currentBuildings = BuildBuildings.getBuildingsCount(driver);
     System.out.println(currentBuildings);
     Assert.assertEquals(initialBuildings + 1, currentBuildings);
+    Assert.assertEquals(BuildBuildings.getNewBuildingName(driver), "Farm");
   }
 
   @Test
   public void checkSuccessfulAcademyBuild() {
-    long initialBuildings = BuildBuildings.getBuildingsCount(driver);
-    System.out.println(initialBuildings);
+   long initialBuildings = BuildBuildings.getBuildingsCount(driver);
     BuildBuildings.clickOnAcademy(driver);
     BuildBuildings.waitUntilBuildingFinishes(driver);
     long currentBuildings = BuildBuildings.getBuildingsCount(driver);
     System.out.println(currentBuildings);
     Assert.assertEquals(initialBuildings + 1, currentBuildings);
+    Assert.assertEquals(BuildBuildings.getNewBuildingName(driver), "Academy");
   }
 }
