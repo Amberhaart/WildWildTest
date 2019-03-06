@@ -3,7 +3,6 @@ import keywords.Logout;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.PageFactory;
 
 public class LogoutTest {
 
@@ -19,7 +18,7 @@ public class LogoutTest {
 
   @Before
   public void setUp() {
-    // here comes the login method
+    driver.get(Config.url); // instead of this line here comes the login method
   }
 
   @AfterClass
@@ -32,5 +31,4 @@ public class LogoutTest {
     Logout.logout(driver);
     Assert.assertTrue(Logout.isLoggedOut(driver));
   }
-
 }
