@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class RegistrationTest {
   static WebDriver driver;
+  final private String kingdomName = "TestKingdom";
 
   @BeforeClass
   public static void setUp(){
@@ -19,6 +20,10 @@ public class RegistrationTest {
 
   @Test
   public void registrationTest(){
-    Registration.clickOnRegisterButton(driver);
+    Registration.clickOnRegisterBtn(driver);
+    Registration.fillUserNameField(driver);
+    Registration.fillPassword(driver);
+    Registration.fillKingdomName(driver);
+    Registration.clickOnSignUpBtn(driver);
   }
 }
