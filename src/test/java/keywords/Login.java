@@ -30,4 +30,18 @@ public class Login {
     return logoutBtn.isDisplayed();
   }
 
+  public static String validateErrorMessage(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+
+    String errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/h3"))).getText();
+    return errorMessage;
+  }
+
+  public static void clearInputFields(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[1]"))).clear();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[2]"))).clear();
+  }
+
 }
