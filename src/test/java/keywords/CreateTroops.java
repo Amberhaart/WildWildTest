@@ -31,7 +31,6 @@ public class CreateTroops {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement troopsTab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[1]/div[2]")));
     troopsTab.click();
-    //boolean isPresent = driver.findElement(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")).isDisplayed();
     if (elementIsPresent(driver)) {
       WebElement createTroopBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
       String numberOfTroops = createTroopBtn.getText();

@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class CreateTroopsTest {
   private static WebDriver driver;
   int numberOfTroops = 1;
-  int numberOfMaxTroops = 10;
+  int numberOfMaxTroops = 20;
 
   @BeforeClass
   public static void initialize() {
