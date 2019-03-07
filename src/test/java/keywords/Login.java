@@ -1,62 +1,47 @@
+package keywords;
+
 import configuration.Config;
-import keywords.Login;
-import keywords.Logout;
-import org.junit.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginTest {
+public class Login {
 
-  protected static WebDriver driver;
-  protected static String falseUsername = "Trükkös hekker";
-  protected static String falsePassword = "kamujelszó";
+  public static void login(WebDriver driver, String username, String password) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
 
-  @BeforeClass
-  public static void setUp() {
-    System.setProperty(Config.webDriverName, Config.webDriverPath);
-    driver = new FirefoxDriver();
-    driver.manage().window().maximize();
-    driver.get(Config.url + "login/");
+    WebElement usernameInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[1]")));
+    usernameInput.sendKeys(username);
+
+    WebElement passwordInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[2]")));
+    passwordInput.sendKeys(password);
+
+    WebElement loginBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/button")));
+    loginBtn.click();
   }
 
-  @AfterClass
-  public static void tearDown() {
-    driver.quit();
+  public static boolean validateLoggedInState(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+
+    WebElement logoutBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/header/nav/button[2]")));
+
+    return logoutBtn.isDisplayed();
   }
 
-  @After
-  public void reset() {
-    Login.clearInputFields(driver);
+  public static String validateErrorMessage(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+
+    String errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/h3"))).getText();
+    return errorMessage;
   }
 
-  @Test
-  public void LoginWithValidCredentials() {
-    Login.login(driver, Config.userName, Config.password);
-    Assert.assertTrue(Login.validateLoggedInState(driver));
-    Logout.logout(driver);
+  public static void clearInputFields(WebDriver driver) {
+    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
+
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[1]"))).clear();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/form/input[2]"))).clear();
   }
 
-  @Test
-  public void LoginWithInvalidUsername() {
-    Login.login(driver, falseUsername, falsePassword);
-    Assert.assertEquals("No such user: " + falseUsername + "!", Login.validateErrorMessage(driver));
-  }
-
-  @Test
-  public void LoginWithInvalidPassword() {
-    Login.login(driver, Config.userName, falsePassword);
-    Assert.assertEquals("Wrong password!", Login.validateErrorMessage(driver));
-  }
-
-  @Test
-  public void LoginWithNoPassword() {
-    Login.login(driver, Config.userName, "");
-    Assert.assertEquals("Please fill out password!", Login.validateErrorMessage(driver));
-  }
-
-  @Test
-  public void LoginWithNoUsername() {
-    Login.login(driver, "", Config.password);
-    Assert.assertEquals("Please fill out username!", Login.validateErrorMessage(driver));
-  }
 }
