@@ -2,11 +2,13 @@ package keywords;
 
 import configuration.Config;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class CreateTroops {
   public static void goToAcademy(WebDriver driver) {
@@ -29,24 +31,28 @@ public class CreateTroops {
     WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
     WebElement troopsTab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[1]/div[2]")));
     troopsTab.click();
-    if (!driver.findElement(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")).isDisplayed()) {
-      return 0;
+    //boolean isPresent = driver.findElement(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")).isDisplayed();
+    if (elementIsPresent(driver)) {
+      WebElement createTroopBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
+      String numberOfTroops = createTroopBtn.getText();
+      int space = numberOfTroops.indexOf(' ');
+      return Integer.parseInt(numberOfTroops.substring(0, space));
     }
-    WebElement createTroopBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button")));
-    String numberOfTroops = createTroopBtn.getText();
-    int space = numberOfTroops.indexOf(' ');
-    return Integer.parseInt(numberOfTroops.substring(0, space));
+    return 0;
   }
 
-  public static String getAmountOfCurrentGold(WebDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Config.timeOutInSeconds);
-    WebElement numberOfGold = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span")));
-    return numberOfGold.getAttribute("value");
+  public static boolean elementIsPresent(WebDriver driver) {
+    try {
+      driver.findElement(By.xpath("//*[@id=\"app\"]/main/div/div[1]/div[2]/div/div[2]/form/button"));
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
   }
 
   public static void waitToCreateTroops() {
     try {
-      Thread.sleep(20000);
+      Thread.sleep(25000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
